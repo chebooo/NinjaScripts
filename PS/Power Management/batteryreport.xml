@@ -2,12 +2,12 @@
 <?xml-stylesheet type='text/xsl' href='C:\battery-stylesheet.xsl'?>
 <BatteryReport xmlns="http://schemas.microsoft.com/battery/2012">
   <ReportInformation>
-    <ReportGuid>69249556-4e92-4372-a98e-207b23d8263e</ReportGuid>
+    <ReportGuid>7aeae60d-afe8-4362-b8a6-5095bdd64c32</ReportGuid>
     <ReportVersion>1.1</ReportVersion>
-    <ScanTime>2025-02-19T09:08:47Z</ScanTime>
-    <LocalScanTime>2025-02-19T09:08:47</LocalScanTime>
-    <ReportStartTime>2025-02-12T09:08:46Z</ReportStartTime>
-    <LocalReportStartTime>2025-02-12T09:08:46</LocalReportStartTime>
+    <ScanTime>2025-02-20T07:56:17Z</ScanTime>
+    <LocalScanTime>2025-02-20T07:56:17</LocalScanTime>
+    <ReportStartTime>2025-02-13T07:56:17Z</ReportStartTime>
+    <LocalReportStartTime>2025-02-13T07:56:17</LocalReportStartTime>
     <ReportDuration>7</ReportDuration>
     <UtcOffset>+0:00</UtcOffset>
   </ReportInformation>
@@ -49,31 +49,9 @@
   </RuntimeEstimates>
   <RecentUsage>
     <UsageEntry
-      Timestamp="2025-02-12T09:48:00Z"
-      LocalTimestamp="2025-02-12T09:48:00"
-      Duration="217200089462"
-      Ac="1"
-      EntryType="Active"
-      ChargeCapacity="78250"
-      Discharge="50"
-      FullChargeCapacity="78990"
-      IsNextOnBattery="0"
-      />
-    <UsageEntry
-      Timestamp="2025-02-12T15:50:00Z"
-      LocalTimestamp="2025-02-12T15:50:00"
-      Duration="573878702439"
-      Ac="1"
-      EntryType="Suspend"
-      ChargeCapacity="78200"
-      Discharge="-200"
-      FullChargeCapacity="78990"
-      IsNextOnBattery="0"
-      />
-    <UsageEntry
-      Timestamp="2025-02-13T07:46:27Z"
-      LocalTimestamp="2025-02-13T07:46:27"
-      Duration="290800278884"
+      Timestamp="2025-02-13T08:47:00Z"
+      LocalTimestamp="2025-02-13T08:47:00"
+      Duration="254478935679"
       Ac="1"
       EntryType="Active"
       ChargeCapacity="78400"
@@ -436,7 +414,7 @@
     <UsageEntry
       Timestamp="2025-02-19T07:44:27Z"
       LocalTimestamp="2025-02-19T07:44:27"
-      Duration="50593284452"
+      Duration="170124242917"
       Ac="1"
       EntryType="Active"
       ChargeCapacity="78400"
@@ -445,9 +423,53 @@
       IsNextOnBattery="0"
       />
     <UsageEntry
-      Timestamp="2025-02-19T09:08:46Z"
-      LocalTimestamp="2025-02-19T09:08:46"
-      Duration="18446744073709529713"
+      Timestamp="2025-02-19T12:28:00Z"
+      LocalTimestamp="2025-02-19T12:28:00"
+      Duration="3727013009"
+      Ac="1"
+      EntryType="Suspend"
+      ChargeCapacity="78400"
+      Discharge="0"
+      FullChargeCapacity="78400"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2025-02-19T12:34:12Z"
+      LocalTimestamp="2025-02-19T12:34:12"
+      Duration="118073024198"
+      Ac="1"
+      EntryType="Active"
+      ChargeCapacity="78400"
+      Discharge="0"
+      FullChargeCapacity="78400"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2025-02-19T15:51:00Z"
+      LocalTimestamp="2025-02-19T15:51:00"
+      Duration="573118589901"
+      Ac="1"
+      EntryType="Suspend"
+      ChargeCapacity="78400"
+      Discharge="0"
+      FullChargeCapacity="78400"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2025-02-20T07:46:11Z"
+      LocalTimestamp="2025-02-20T07:46:11"
+      Duration="6053743858"
+      Ac="1"
+      EntryType="Active"
+      ChargeCapacity="78400"
+      Discharge="0"
+      FullChargeCapacity="78400"
+      IsNextOnBattery="0"
+      />
+    <UsageEntry
+      Timestamp="2025-02-20T07:56:17Z"
+      LocalTimestamp="2025-02-20T07:56:17"
+      Duration="0"
       Ac="1"
       EntryType="ReportGenerated"
       ChargeCapacity="78400"
@@ -726,6 +748,26 @@
       FullChargeCapacity="78400"
       CycleCount="25"
       ActiveAcTime="PT7H58M4S"
+      ActiveDcTime="PT0S"
+      CsAcTime="PT0S"
+      CsDcTime="PT0S"
+      ActiveDcEnergy="0"
+      CsDcEnergy="0"
+      EstimatedDesignActiveTime="PT0S"
+      EstimatedFullChargeActiveTime="PT0S"
+      EstimatedDesignCsTime="PT0S"
+      EstimatedFullChargeCsTime="PT0S"
+      BatteryChanged="0"
+      />
+    <HistoryEntry
+      StartDate="2025-02-19T00:00:00Z"
+      LocalStartDate="2025-02-19T00:00:00"
+      EndDate="2025-02-19T23:59:59Z"
+      LocalEndDate="2025-02-19T23:59:59"
+      DesignCapacity="80000"
+      FullChargeCapacity="78400"
+      CycleCount="25"
+      ActiveAcTime="PT8H0M11S"
       ActiveDcTime="PT0S"
       CsAcTime="PT0S"
       CsDcTime="PT0S"
