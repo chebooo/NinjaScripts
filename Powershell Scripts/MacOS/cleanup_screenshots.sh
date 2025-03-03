@@ -2,7 +2,9 @@
 
 # Configuration
 DAYS_OLD=14  # 2 weeks
-SCREENSHOTS_DIR="/Users/sebastian.astalos/Desktop/Screenshots_Test"
+# Use a generic path that will work for any user
+SCREENSHOTS_DIR="/Users/$(stat -f "%Su" /dev/console)/Desktop/Screenshots"
+
 
 # Enable debug output
 DEBUG=true
@@ -98,20 +100,3 @@ find "$SCREENSHOTS_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jp
         debug_echo "Skipping recent file: $(basename "$item")"
     fi
 done
-
-# Read the final count and size
-REMOVED_COUNT=$(cat "$temp_count_file")
-TOTAL_SIZE=$(cat "$temp_size_file")
-rm -f "$temp_count_file" "$temp_size_file"  # Clean up temp files
-
-# Show notification based on results
-if [ $REMOVED_COUNT -gt 0 ]; then
-    formatted_size=$(format_size $TOTAL_SIZE)
-    show_notification "$REMOVED_COUNT screenshots cleaned up (Total: $formatted_size)"
-else
-    show_notification "No screenshots needed cleaning up"
-fi
-
-debug_echo "=== Script Completed ==="
-debug_echo "$REMOVED_COUNT files were removed (Total: $(format_size $TOTAL_SIZE))"
-exit 0

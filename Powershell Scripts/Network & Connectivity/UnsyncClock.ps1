@@ -1,4 +1,4 @@
-# Windows Clock Synchronization Script
+# Windows Clock Unsynchronization Script
 # Ensure the script is running with administrative privileges
 If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
 {
@@ -6,103 +6,44 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Exit 1
 }
 
-# Define the desired time zone ID for the United Kingdom
-$desiredTimeZone = "GMT Standard Time"
+# Display current time
+Write-Host "Current system time before changes: $(Get-Date)" -ForegroundColor Cyan
 
-# Get the current time zone
-$currentTimeZone = (Get-TimeZone).Id
-
-# Check if the current time zone matches the desired time zone
-If ($currentTimeZone -ne $desiredTimeZone)
-{
-    Try
-    {
-        # Set the desired time zone
-        Set-TimeZone -Id $desiredTimeZone
-        Write-Host "Time zone set to $desiredTimeZone." -ForegroundColor Green
-    }
-    Catch
-    {
-        Write-Host "Failed to set time zone. Error: $_" -ForegroundColor Red
-        # Continue execution even if time zone setting fails
-    }
-}
-Else
-{
-    Write-Host "Time zone is already set to $desiredTimeZone." -ForegroundColor Green
-}
-
-# Enable Windows Time service to start automatically
+# Stop the Windows Time service
 Try {
-    Set-Service -Name w32time -StartupType Automatic
-    Write-Host "Windows Time service set to start automatically." -ForegroundColor Green
+    Stop-Service -Name w32time -Force
+    Write-Host "Windows Time service stopped." -ForegroundColor Green
 } Catch {
-    Write-Host "Failed to set Windows Time service to automatic startup. Error: $_" -ForegroundColor Red
+    Write-Host "Failed to stop Windows Time service. Error: $_" -ForegroundColor Red
 }
 
-# Set the time service to use NTP (restore from NoSync if it was changed)
+# Set the time service to NoSync mode
 Try {
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Parameters" -Name "Type" -Value "NTP" -ErrorAction Stop
-    Write-Host "Windows Time service configured to use NTP." -ForegroundColor Green
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Parameters" -Name "Type" -Value "NoSync" -ErrorAction Stop
+    Write-Host "Windows Time service configured to NoSync mode." -ForegroundColor Green
 } Catch {
     Write-Host "Failed to configure time service type. Error: $_" -ForegroundColor Red
 }
 
-# Ensure the Windows Time service is running
-Try
-{
-    $service = Get-Service -Name w32time -ErrorAction Stop
-    If ($service.Status -ne 'Running')
-    {
-        Start-Service -Name w32time
-        Write-Host "Windows Time service started." -ForegroundColor Green
-    }
-    Else
-    {
-        Write-Host "Windows Time service is already running." -ForegroundColor Green
-    }
-}
-Catch
-{
-    Write-Host "Failed to check or start Windows Time service. Error: $_" -ForegroundColor Red
-    Exit 1
-}
-
-# Configure time servers
+# Disable automatic start of Windows Time service
 Try {
-    w32tm /config /syncfromflags:manual /manualpeerlist:"time.windows.com,0.pool.ntp.org,1.pool.ntp.org,2.pool.ntp.org" /update
-    Write-Host "Time servers configured successfully." -ForegroundColor Green
+    Set-Service -Name w32time -StartupType Disabled
+    Write-Host "Windows Time service set to disabled startup type." -ForegroundColor Green
 } Catch {
-    $ErrorMessage = $_.Exception.Message
-    Write-Host "Failed to configure time servers. Error: $ErrorMessage" -ForegroundColor Red
+    Write-Host "Failed to set Windows Time service to disabled. Error: $_" -ForegroundColor Red
 }
 
-# Restart the Windows Time service to apply changes
+# Set system time to a different value (1 hour behind)
 Try {
-    Restart-Service w32time -Force
-    Write-Host "Windows Time service restarted." -ForegroundColor Green
-    Start-Sleep -Seconds 2  # Give the service a moment to initialize
+    $newTime = (Get-Date).AddHours(-1)
+    Set-Date -Date $newTime
+    Write-Host "System clock set to 1 hour behind." -ForegroundColor Green
 } Catch {
-    Write-Host "Failed to restart Windows Time service. Error: $_" -ForegroundColor Red
+    Write-Host "Failed to change system time. Error: $_" -ForegroundColor Red
 }
 
-# Synchronize the system time
-Try
-{
-    # Use cmd.exe to run w32tm and capture its output since it's not a native PowerShell command
-    $result = cmd.exe /c "w32tm /resync /force 2>&1"
-    
-    # Check if the command executed successfully
-    if ($result -match "The command completed successfully") {
-        Write-Host "System time synchronized successfully." -ForegroundColor Green
-    } else {
-        Write-Host "Time synchronization completed with message: $result" -ForegroundColor Yellow
-    }
-}
-Catch
-{
-    Write-Host "Time synchronization failed. Error: $_" -ForegroundColor Red
-}
+# Display the new time for verification
+Write-Host "New system time: $(Get-Date)" -ForegroundColor Cyan
 
-# Display the current time for verification
-Write-Host "Current system time: $(Get-Date)" -ForegroundColor Cyan
+Write-Host "The system clock has been successfully unsynced. Time synchronization is now disabled." -ForegroundColor Yellow
+Write-Host "You can now test your SynchroniseTime.ps1 script." -ForegroundColor Yellow
